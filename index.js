@@ -285,7 +285,7 @@ class Func1_ extends React.Component{
     componentDidMount(){ //despues del renderizado
         this.setState({nombre:'nombre2'}) 
         this.setState((state,props)=>({ //function setState --> (state - previo) / (props - actualizar)
-            nombre: state.nombre +".."+props.nombre;
+            nombre: state.nombre +".."+props.nombre
         }));
     } 
     componentWillMount(){  } //se invoca antes de desmontar y eliminar un componente
@@ -303,14 +303,7 @@ class App_ extends React.Component{
 }
 ReactDOM.render(<App_/>,document.getElementById('root'));
 
-
-
-
-
-
-
-//--------componentes----------------
-
+//--------componentes---------------------------
 import React, {Fragment, Component} from "react";
 import ReactDOM from "react-dom";
 
@@ -334,4 +327,80 @@ class Saludar extends Component{
 const r_ = document.body;
 ReactDOM.render(<Saludar nombre="nombre1_" />, r_);
 
-//----------------------
+
+//------------Eventos Reactjs-------evento function en etiqueta JSX---
+function ModuloBoton(){
+    function activarBoton(e){
+        e.preventDefault(); //desactiva comportamiento por defecto (href="#")
+    }
+    return(
+        <a href="#" onClick={activarBoton}> activar </a>
+    );    
+}
+//------ES6 class Event Reactjs----------------
+class Boton_ extends React.Component{
+    constructor(props){
+        super(props);
+        const activo_=props.activo_;
+        this.state={tipoClick_:true};
+        //------------hace que (this) funcione en el callback-----
+        this.setClick_=this.setClick_.bind(this);
+    }
+    setClick(){
+        console.log(this);
+        this.setState(state=>({tipoCLick_:!state.tipoCLick_}));
+    }
+    render(){
+        let activo_=this.state.activo_;
+        let mensaje_;
+        if(activo_){
+            mensaje_='el boton esta activo';
+        }else{
+            mensaje_='el boton esta inactivo';
+        }
+
+        return (
+            <div>
+                //----if Reactjs---(activo_ == true)--
+                {activo_ &&
+                    <button onClick={(e)=>this.setClick_(e)}>
+                        {this.state.tipoClick_ ? 'ON' : 'OFF'}                        
+                    </button>
+                }                
+                {mensaje_}
+            </div>
+        )
+    }
+}
+const act_=true;
+ReactDOM.render(<Boton_ activo_={act_}/>, document.getElementById('root'));
+
+//-----------function (flecha y bind)------------------
+<button onClick={ (e)=>this.eliminar(id,e) }>Eliminar</button>
+<button onClick={ this.eliminar.bind(this,id) }>Eliminar</button>
+
+//---------render listar--------------------------
+function Lista_(props){
+    return <li>{props.valor}</li>;
+}
+
+function Numeros_(props){
+    const numeros_=props.numeros_;
+    const listarNumeros= numeros_.map((num_)=>
+        <Lista_ key={num_.toString()} valor={num_} />
+    );
+    return (        
+        <ul>           
+            {listarNumeros}
+        </ul>
+        /*-----Ejemplo- map() dentro de Render-------*/
+        <ul>
+            {numeros_.map((num_)=> 
+                <Lista_ key={num_.toString()} valor={num_} /> 
+            )}
+        </ul>
+    );
+}
+const n_=[1,2,3,4,5];
+ReactDOM.render(<Numeros_ numeros_={n_} />, document.getElementById('root'));
+
