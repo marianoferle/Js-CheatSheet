@@ -200,7 +200,7 @@ var Router_ = express.Router();
 var app = express();
 
 //----------Esquema de modelo---------------
-const personaSchema = new mongoose_.Schema({
+const personaSchema = new mongoose.Schema({
     nombre:String,
     edad:Number,
     comentario:String,
@@ -208,7 +208,7 @@ const personaSchema = new mongoose_.Schema({
 });
 
 //--------------Modelo-----(esquema)--------------
-var Model_ = mongoose_.model('usuario',personaSchema);
+var Model_ = mongoose.model('usuario',personaSchema);
 
 //--------------- controlador ---(modelo)------------
 var getPersona = async function(req,res){
