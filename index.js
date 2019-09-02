@@ -248,26 +248,62 @@ const elemento2_ = (
 );
 //-------------------------------
 function reloj(){
-    const elemento = (
-        <div>
-            <h1> {new Date().toLocaleDateString()} </h1>
-        </div>
+    const elemento = ( 
+        <div>  <h1> {new Date().toLocaleDateString()} </h1> </div> 
     );
     ReactDOM.render(elemento,document.getElementById('root'));
 }
 setInterval(reloj,1000);
 
+//---------componentes ReactJS-----(props)--> solo lectura-------------------
 
-//---------componentes ReactJS-----(props)--------------------
 //la forma mas basica es en una function
 function function1_(props){ return <h1>Hola,{props.nombre}</h1>; }
+
 //Componente con ES6
 class Function1_ extends React.Component{ 
-    render(){ return <h1>Hola,{this.props.nombre}</h1>; } 
+    render(){ return <h1>Hola,{this.props.nombre}</h1>; }
 }
 const elemento = <Function1_ nombre="nombre1" />;
 ReactDOM.render(elemento,document.getElementById('root'));
-//----------
+
+//-----(app (componente))---------
+function Func1_(props){return <h1>Hola,{props.nombre}</h1>};
+function App_(){ 
+    return ( <div> <Func1_ nombre="nombre1" /> </div> ); 
+};
+ReactDOM.render(<App_/>,document.getElementById('root'));
+
+//#### ReactJs - ES6 => ( function => Class ), ( props => this.props) #####
+//--------estados locales en una class .......this.state...........
+class Func1_ extends React.Component{
+    constructor(props){ //constructor base
+        super(props);
+        this.state = {nombre:'...'}; //this.state solo en constructor
+    }
+    //-------metodos de ciclo de vida de un componente------------
+    componentDidMount(){ //despues del renderizado
+        this.setState({nombre:'nombre2'}) 
+        this.setState((state,props)=>({ //function setState --> (state - previo) / (props - actualizar)
+            nombre: state.nombre +".."+props.nombre;
+        }));
+    } 
+    componentWillMount(){  } //se invoca antes de desmontar y eliminar un componente
+
+    render(){ //se invoca cada ves que se actualiza algo.
+        return (
+            <h1>Hola,{this.state.nombre}</h1>
+        );
+    }
+}
+class App_ extends React.Component{
+    render(){ 
+        return( <div> <Func1_ nombre="nombre1" /> </div> ); 
+    }
+}
+ReactDOM.render(<App_/>,document.getElementById('root'));
+
+
 
 
 
