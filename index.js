@@ -1,3 +1,5 @@
+//############ JS ###################################
+
 var str_ = "nombre";
 var arr_ = [1,2,3,4];
 var fu_ = function(){};
@@ -155,34 +157,9 @@ export default function(){ }
 
 
 
-//################################ React JS ######################################
 
-//--------componentes----------------
 
-import React, {Fragment, Component} from "react";
-import ReactDOM from "react-dom";
 
-class Saludar extends Component{
-    constructor(props){
-        super(props);
-        this.state = {visible = true}
-    }
-    render(){        
-        const {nombre_,apellido}=this.props;
-        const visible_ = this.state;
-        return(
-            <Fragment>
-                <UsarNombre nombre={nombre_} onClic={(visible_)=>{
-                    this.setState({visible_=false});
-                }}/> 
-            </Fragment>
-        )
-    }    
-}
-const r_ = document.body;
-ReactDOM.render(<Saludar nombre="nombre1_" />, r_);
-
-//----------------------
 
 
 
@@ -239,3 +216,86 @@ mongoose.connect('mongodb://127.0.0.1:27017/Persona', {useNewUrlParser: true}).t
         console.log("servidor corriendo en http://localhost:5000");
     });    
 }).catch(err => console.log(err));
+
+
+
+
+
+
+
+
+
+
+
+
+//################################ React JS ######################################
+
+//----------JSX-----------------
+function nombreCompleto_(us_){return us_.nombre+' '+us_.apellido}
+const user_={nombre:'nombre1_',apellido:'apellido1_'};
+const elemento = <h1>Hola, {nombreCompleto_(user_)}</h1>;
+ReactDOM.render(elemento,document.getElementById('root'));
+
+//--------
+const elemento = <h1 className="index"/> Hola </h1>;
+//---ejemplo sin jsx-----------
+const elemento = React.createElement('h1',{className:'index'},'Hola');
+//----------------------
+const elemento2_ = (
+    <div>
+        <h1>Hola</h1>
+    </div>
+);
+//-------------------------------
+function reloj(){
+    const elemento = (
+        <div>
+            <h1> {new Date().toLocaleDateString()} </h1>
+        </div>
+    );
+    ReactDOM.render(elemento,document.getElementById('root'));
+}
+setInterval(reloj,1000);
+
+
+//---------componentes ReactJS-----(props)--------------------
+//la forma mas basica es en una function
+function function1_(props){ return <h1>Hola,{props.nombre}</h1>; }
+//Componente con ES6
+class Function1_ extends React.Component{ 
+    render(){ return <h1>Hola,{this.props.nombre}</h1>; } 
+}
+const elemento = <Function1_ nombre="nombre1" />;
+ReactDOM.render(elemento,document.getElementById('root'));
+//----------
+
+
+
+
+
+//--------componentes----------------
+
+import React, {Fragment, Component} from "react";
+import ReactDOM from "react-dom";
+
+class Saludar extends Component{
+    constructor(props){
+        super(props);
+        this.state = {visible = true}
+    }
+    render(){        
+        const {nombre_,apellido}=this.props;
+        const visible_ = this.state;
+        return(
+            <Fragment>
+                <UsarNombre nombre={nombre_} onClic={(visible_)=>{
+                    this.setState({visible_=false});
+                }}/> 
+            </Fragment>
+        )
+    }    
+}
+const r_ = document.body;
+ReactDOM.render(<Saludar nombre="nombre1_" />, r_);
+
+//----------------------
