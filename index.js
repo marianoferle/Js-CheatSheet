@@ -404,3 +404,35 @@ function Numeros_(props){
 const n_=[1,2,3,4,5];
 ReactDOM.render(<Numeros_ numeros_={n_} />, document.getElementById('root'));
 
+//----------------------------
+class Componente_ extends React.Component{
+    constructor(props){
+        super(props);
+        this.state={
+            val1:true,
+            val2:10
+        };
+        this.setItem = this.setItem.bind(this);
+    }
+    setItem(event){
+        const target_=event.target;
+        const value_=target_.value;
+        const name_=target.name;   
+        //---ES6--------     
+        this.setState({[name_]: value_});
+        //---ES5-------
+        var es_={};
+        es_[name_]=value_;
+        this.setState(es_);
+    }
+    render(){
+        return(
+            //----------checked o value input-------
+            <form>                
+                <input name="input1" value="value1" checked={this.state.val1} onChange={this.setItem} />
+                <input name="input2" value="value2" value={this.state.val2} onChange={this.setItem} />                    
+            </form>
+
+        );
+    }
+}
